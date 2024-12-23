@@ -1,0 +1,188 @@
+//Sum of n natural numbers
+#include<iostream>
+using namespace std;
+int main(){
+int n;
+cout<<"Enter the count of natural no. upto which you wish to find the sum: ";
+cin>>n;
+int sum=n*(n+1)/2;
+cout<<"Sum="<<sum;
+return 0;
+}
+
+
+//To count the digits of a number
+#include <iostream>
+using namespace std;
+int main(){
+    int num,count=0;
+    cout<<"Enter a number: ";
+    cin>>num;
+    if(num==0){
+        count=1;
+    }
+    else{
+        if(num<0){
+            num*=-1;
+        }
+        while(num> 0){
+            num /= 10;
+            count++;
+        }
+    }
+    cout <<"The number of digits= "<<count<<endl;
+    return 0;
+}
+
+
+// Implement the concept of function overloading
+#include <iostream>
+using namespace std;
+double area(double r){
+    return 3.14*r*r;
+}
+int area(int l, int b){
+    return l*b;
+}
+double area(double base, double height){
+    return 0.5 *base *height;
+}
+int main(){
+    double r,base,height;
+    int l,b;
+    cout<<"Enter the radius of a circle:";
+    cin >>r;
+    cout<<"Enter the length and breadth of a rectangle:";
+    cin >>l>>b;
+    cout<<"Enter the base and height of a triangle:";
+    cin >>base>>height;
+    cout<<"Area of circle: "<<area(r)<<endl;
+    cout<<"Area of rectangle: "<<area(l,b)<<endl;
+    cout<<"Area of triangle: "<<area(base, height)<<endl;
+    return 0;
+}
+
+
+//Implement the concept of polymorphism for banking transactions
+#include <iostream>
+using namespace std;
+class Account{
+public:
+virtual void calculateInterest() = 0;
+};
+class SavingsAccount : public Account{
+int balance;
+double rate;
+int time;
+public:
+SavingsAccount(int b, double r, int t){
+balance = b;
+rate = r;
+time = t;
+}
+void calculateInterest() override{
+cout << "Savings Account Interest: " << balance * rate * time / 100 << endl;
+}
+};
+class CurrentAccount : public Account{
+int balance;
+int amount;
+public:
+CurrentAccount(int b, int a){
+balance = b;
+amount = a;
+}
+void calculateInterest() override{
+cout << "Balance after amount deduction: " << balance - amount << endl;
+}
+};
+int main(){
+int accountType;
+cout << "Enter the accountType (1 for Savings, 2 for Current): ";
+cin >> accountType;
+switch (accountType){
+case 1:{
+int balance, time;
+double rate;
+cout << "Enter balance, rate and time for Savings Account: ";
+cin >> balance >> rate >> time;
+SavingsAccount sa(balance, rate, time);
+sa.calculateInterest();
+break;
+}
+case 2:{
+int balance, amount;
+cout << "Enter balance and amount for Current Account: ";
+cin >> balance >> amount;
+CurrentAccount ca(balance, amount);
+ca.calculateInterest();
+break;
+}
+default:
+cout << "Invalid account type." << endl;
+}
+return 0;
+}
+
+
+// Implement inheritance on employment management system
+#include <iostream>
+using namespace std;
+class Employee {
+protected:
+    string name;
+    int id;
+    double salary;
+public:
+    Employee(string n, int i, double s) {
+        name = n;
+        id = i;
+        salary = s;
+}
+void calculateSalary(){}
+void display() {
+        cout << "Employee ID: " << id << endl;
+        cout << "Employee Name: " << name << endl;
+        cout << "Employee Salary: " << salary << endl;
+    }
+};
+
+class Manager : public Employee {
+    double bonus;
+public:
+    Manager(string n, int i, double s, double b) : Employee(n, i, s), bonus(b) {}
+    void calculateSalary(){
+        salary += bonus;
+    }
+    void display() {
+        Employee::display();
+        cout << "Manager Bonus: " << bonus << endl;
+        cout << "Total Salary: " << salary << endl;
+    }
+};
+class Engineer : public Employee {
+    double overtimePay;
+public:
+    Engineer(string n, int i, double s, double o) : Employee(n, i, s), overtimePay(o) {}
+    void calculateSalary(){
+        salary += overtimePay;
+    }
+    void display(){
+        Employee::display();
+        cout << "Overtime Pay: " << overtimePay << endl;
+        cout << "Total Salary: " << salary << endl;
+    }
+};
+int main() {
+    Manager emp1("Anshika", 101, 50000, 5000);
+    Engineer emp2("Pawan", 102, 40000, 2000);
+    cout << "Manager Details-" << endl;
+    emp1.calculateSalary();
+    emp1.display();
+    cout<<endl;
+    cout <<"Engineer Details-" << endl;
+    emp2.calculateSalary();
+    emp2.display();
+    return 0;
+}
+
